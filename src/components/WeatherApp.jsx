@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// console.log(process.env.REACT_APP_WEATHER_API_KEY);
-
 export default function WeatherApp() {
 	const [data, setData] = useState('');
 	const [city, setCity] = useState('Vancouver');
@@ -15,21 +13,49 @@ export default function WeatherApp() {
 		).json();
 	};
 
-	useEffect(() => {
+	const setNewData = () => {
 		try {
 			fetchWeather().then((result) => setData(result));
 		} catch (e) {
 			console.error(`Failed to fetch Weather API: ${e} `);
 		}
-	}, [city]);
+	};
 
-	console.log(`🚀 ~ WeatherApp ~ data`, data);
+	useEffect(() => {
+		setNewData();
+	}, []);
 
-	return (
+	function pressEnter(e) {
+		// e.code === 'Enter' ? fetchWeather() : '';
+		if (e.code === 'Enter') {
+			setNewData();
+			console.log(e.code);
+		}
+	}
+
+	return data.cod !== 200 ? (
+		<>
+			<p>City Not Found! Please Try Again.</p>
+			<header>
+				<input
+					type="text"
+					placeholder="Search by City"
+					onChange={(e) => setCity(e.target.value)}
+					onKeyUp={pressEnter}
+				/>
+				<span>℃</span>
+			</header>
+		</>
+	) : (
 		<>
 			<h1>Weather App</h1>
 			<header>
-				<input type="text" placeholder="Search by City" />
+				<input
+					type="text"
+					placeholder="Search by City"
+					onChange={(e) => setCity(e.target.value)}
+					onKeyUp={pressEnter}
+				/>
 				<span>℃</span>
 			</header>
 			<article>
