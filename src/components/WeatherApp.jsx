@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import './WeatherApp.css';
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
@@ -64,15 +65,15 @@ export default function WeatherApp() {
 	}
 
 	return data.cod !== 200 ? (
-		<>
+		<main className="not-found-popup">
 			<p>City Not Found! Please Try Again.</p>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
 				onKeyUpEvent={pressEnter}
 			/>
-		</>
+		</main>
 	) : (
-		<>
+		<main>
 			<h1>Weather App</h1>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
@@ -85,8 +86,8 @@ export default function WeatherApp() {
 				</h2>
 				<div className="temp">
 					<h3>{Math.round(data.main.temp)}°</h3>
-					<span>{Math.round(data.main.temp_max)}°</span>
-					<span>{Math.round(data.main.temp_min)}°</span>
+					<span id="temp-max">{Math.round(data.main.temp_max)}°</span>
+					<span id="temp-min">{Math.round(data.main.temp_min)}°</span>
 					<p>
 						Feels like<span>{Math.round(data.main.feels_like)}°</span>
 					</p>
@@ -118,6 +119,6 @@ export default function WeatherApp() {
 					</section>
 				</div>
 			</article>
-		</>
+		</main>
 	);
 }
