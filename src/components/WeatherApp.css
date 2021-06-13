@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Quicksand', sans-serif;
 }
 
 html,
@@ -13,7 +16,8 @@ body {
 body {
 	display: grid;
 	align-items: center;
-	background-color: lightgray;
+	/* background: linear-gradient(to bottom, rgb(236, 167, 30), rgb(237, 116, 1)); */
+	background-color: rgb(255, 188, 62);
 }
 
 .not-found-popup {
@@ -27,11 +31,14 @@ body {
 
 main {
 	margin: auto;
-	width: 500px;
+	max-width: 500px;
+	/* min-width: 200px; */
 	background-color: rgba(255, 255, 255, 0.2);
+	background: linear-gradient(to bottom, rgb(255, 165, 0), rgb(237, 116, 1));
+
 	border-radius: 1rem;
 	color: #fff;
-	background: linear-gradient(to bottom, rgb(236, 167, 30), rgb(237, 116, 1));
+	/* background: linear-gradient(to bottom, rgb(236, 167, 30), rgb(237, 116, 1)); */
 }
 
 main h1 {
