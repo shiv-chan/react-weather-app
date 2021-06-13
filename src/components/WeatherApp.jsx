@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Header from './Header';
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
 	const [city, setCity] = useState('Vancouver');
+	console.log(`🚀 ~ WeatherApp ~ data`, data);
 
 	// fetch weather api
 	const fetchWeather = async () => {
@@ -13,6 +15,7 @@ export default function WeatherApp() {
 		).json();
 	};
 
+	// set new data
 	const setNewData = () => {
 		try {
 			fetchWeather().then((result) => setData(result));
@@ -21,10 +24,12 @@ export default function WeatherApp() {
 		}
 	};
 
+	// first fetch after dom loaded
 	useEffect(() => {
 		setNewData();
 	}, []);
 
+	// press enter event handler
 	function pressEnter(e) {
 		// e.code === 'Enter' ? fetchWeather() : '';
 		if (e.code === 'Enter') {
@@ -33,70 +38,83 @@ export default function WeatherApp() {
 		}
 	}
 
+	// get current date 'day, date month'
+	function currentDate() {
+		const currentDate = new Date();
+		const formatOptions = { weekday: 'short', month: 'long', day: 'numeric' };
+		return new Intl.DateTimeFormat('en-US', formatOptions).format(currentDate);
+	}
+
+	// format time
+	function formatTime(time) {
+		const millisecondTime = time * 1000;
+		const timeObj = new Date(millisecondTime);
+		return timeObj.toLocaleTimeString('en-US', {
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+	}
+
+	// get country name
+	function countryName() {
+		const countryNameInEnglish = new Intl.DisplayNames(['en'], {
+			type: 'region',
+		});
+		return countryNameInEnglish.of(data.sys.country);
+	}
+
 	return data.cod !== 200 ? (
 		<>
 			<p>City Not Found! Please Try Again.</p>
-			<header>
-				<input
-					type="text"
-					placeholder="Search by City"
-					onChange={(e) => setCity(e.target.value)}
-					onKeyUp={pressEnter}
-				/>
-				<span>℃</span>
-			</header>
+			<Header
+				onChangeEvent={(e) => setCity(e.target.value)}
+				onKeyUpEvent={pressEnter}
+			/>
 		</>
 	) : (
 		<>
 			<h1>Weather App</h1>
-			<header>
-				<input
-					type="text"
-					placeholder="Search by City"
-					onChange={(e) => setCity(e.target.value)}
-					onKeyUp={pressEnter}
-				/>
-				<span>℃</span>
-			</header>
+			<Header
+				onChangeEvent={(e) => setCity(e.target.value)}
+				onKeyUpEvent={pressEnter}
+			/>
 			<article>
-				<p>Today's Date</p>
-				<h2>City Name</h2>
+				<p>{currentDate()}</p>
+				<h2>
+					{data.name}, {countryName()}
+				</h2>
 				<div className="temp">
-					<h3>28°</h3>
-					<span>31°</span>
-					<span>19°</span>
+					<h3>{Math.round(data.main.temp)}°</h3>
+					<span>{Math.round(data.main.temp_max)}°</span>
+					<span>{Math.round(data.main.temp_min)}°</span>
 					<p>
-						Feels like<span>29°</span>
+						Feels like<span>{Math.round(data.main.feels_like)}°</span>
 					</p>
 				</div>
 				<div className="weather">
-					<h3>Clear</h3>
-					<span>clear sky</span>
+					<h3>{data.weather[0].main}</h3>
+					<span>{data.weather[0].description}</span>
 				</div>
 				<div className="others">
 					<section className="others-item">
 						<h4>Sunrise</h4>
-						<p>3:55 am</p>
+						<p>{formatTime(data.sys.sunrise)}</p>
 					</section>
 					<section className="others-item">
 						<h4>Sunset</h4>
-						<p>9:13 pm</p>
-					</section>
-					<section className="others-item">
-						<h4>Precipitaion</h4>
-						<p>10%</p>
+						<p>{formatTime(data.sys.sunset)}</p>
 					</section>
 					<section className="others-item">
 						<h4>Humidity</h4>
-						<p>42%</p>
+						<p>{data.main.humidity} %</p>
 					</section>
 					<section className="others-item">
 						<h4>Wind</h4>
-						<p>11 km/h</p>
+						<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
 					</section>
 					<section className="others-item">
 						<h4>Pressure</h4>
-						<p>1009 hPa</p>
+						<p>{data.main.pressure} hPa</p>
 					</section>
 				</div>
 			</article>
