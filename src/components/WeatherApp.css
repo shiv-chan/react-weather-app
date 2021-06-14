@@ -103,11 +103,16 @@ article > h2 {
 	font-size: 2rem;
 }
 
-.temp #max-temp {
+.temp #temp-max {
 	grid-area: max;
 }
 
-.temp #min-temp {
+.temp #temp-max svg,
+.temp #temp-min svg {
+	margin-right: 0.5rem;
+}
+
+.temp #temp-min {
 	grid-area: min;
 }
 

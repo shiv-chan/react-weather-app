@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 export default function Temperature({
@@ -17,8 +18,14 @@ export default function Temperature({
 	return (
 		<div className="temp">
 			<h3>{convertToFahrenheit(temp)}°</h3>
-			<span id="temp-max">{convertToFahrenheit(tempMax)}°</span>
-			<span id="temp-min">{convertToFahrenheit(tempMin)}°</span>
+			<span id="temp-max">
+				<FontAwesomeIcon icon="chevron-up" />
+				{convertToFahrenheit(tempMax)}°
+			</span>
+			<span id="temp-min">
+				<FontAwesomeIcon icon="chevron-down" />
+				{convertToFahrenheit(tempMin)}°
+			</span>
 			<p>
 				Feels like <span>{convertToFahrenheit(feelsLike)}°</span>
 			</p>
