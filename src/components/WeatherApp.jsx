@@ -8,6 +8,7 @@ export default function WeatherApp() {
 	const [data, setData] = useState('');
 	const [city, setCity] = useState('Vancouver');
 	const [fahrenheit, setFahrenheit] = useState(false);
+	const [icon, setIcon] = useState('');
 
 	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
@@ -73,8 +74,52 @@ export default function WeatherApp() {
 		setFahrenheit(!fahrenheit);
 	}
 
+	// set icon
+	function switchBackground(icon) {
+		switch (icon) {
+			case '01d':
+			case '01n':
+				setIcon('sunny');
+				break;
+			case '02d':
+			case '02n':
+				setIcon('few-clouds');
+				break;
+			case '03d':
+			case '03n':
+			case '04d':
+			case '04n':
+				setIcon('clouds');
+				break;
+			case '09d':
+			case '09n':
+			case '10d':
+			case '10n':
+				setIcon('rain');
+				break;
+			case '11d':
+			case '11n':
+				setIcon('thunder');
+				break;
+			case '13d':
+			case '13n':
+				setIcon('snow');
+				break;
+			case '50d':
+			case '50n':
+				setIcon('mist');
+				break;
+			default:
+				setIcon('sunny');
+		}
+	}
+
+	useEffect(() => {
+		data && data.cod === 200 && switchBackground(data.weather[0].icon);
+	}, [data]);
+
 	return data.cod !== 200 ? (
-		<main className="not-found-popup">
+		<main className={`not-found-popup ${icon}`}>
 			<p>City Not Found! Please Try Again.</p>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
@@ -84,7 +129,7 @@ export default function WeatherApp() {
 			/>
 		</main>
 	) : (
-		<main>
+		<main className={icon}>
 			<h1>Weather App</h1>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}

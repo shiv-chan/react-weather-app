@@ -17,7 +17,7 @@ body {
 	display: grid;
 	align-items: center;
 	/* background: linear-gradient(to bottom, rgb(236, 167, 30), rgb(237, 116, 1)); */
-	background-color: rgb(255, 188, 62);
+	/* background-color: rgb(255, 188, 62); */
 }
 
 .not-found-popup {
@@ -164,4 +164,32 @@ article > h2 {
 
 .others-item p {
 	font-weight: bold;
+}
+
+.sunny {
+	background: linear-gradient(to bottom, rgb(255, 165, 0), rgb(237, 116, 1));
+}
+
+.few-clouds {
+	background: linear-gradient(to top, #d1913c, #ffd194);
+}
+
+.clouds {
+	background: linear-gradient(to top, #757f9a, #d7dde8);
+}
+
+.rain {
+	background: linear-gradient(to top, #2c3e50, #3498db);
+}
+
+.thunder {
+	background: linear-gradient(to bottom, #e9d362, #333333);
+}
+
+.snow {
+	background: linear-gradient(to top, #83a4d4, #b6fbff);
+}
+
+.mist {
+	background: linear-gradient(to top, #9796f0, #fbc7d4);
 }
