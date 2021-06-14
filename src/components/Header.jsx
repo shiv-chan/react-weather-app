@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Header({ onChangeEvent, onKeyUpEvent }) {
+export default function Header({
+	onChangeEvent,
+	onKeyUpEvent,
+	unitOnClickEvent,
+	isFahrenheit,
+}) {
 	return (
 		<header>
 			<input
@@ -9,7 +14,7 @@ export default function Header({ onChangeEvent, onKeyUpEvent }) {
 				onChange={onChangeEvent}
 				onKeyUp={onKeyUpEvent}
 			/>
-			<span>℃</span>
+			<span onClick={unitOnClickEvent}>{isFahrenheit ? 'F' : '℃'}</span>
 		</header>
 	);
 }

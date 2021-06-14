@@ -66,6 +66,10 @@ header span {
 	margin-left: 1rem;
 }
 
+header span:hover {
+	cursor: pointer;
+}
+
 article > p,
 article > h2 {
 	margin: 2rem;
@@ -90,6 +94,7 @@ article > h2 {
 		'feels feels';
 	margin: 2rem;
 	width: auto;
+	gap: 0.5rem;
 }
 
 /* name each grid area */
