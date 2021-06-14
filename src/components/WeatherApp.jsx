@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
+import Temperature from './Temperature';
+import WeatherIcon from './WeatherIcon';
 import './WeatherApp.css';
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
 	const [city, setCity] = useState('Vancouver');
-	console.log(`🚀 ~ WeatherApp ~ data`, data);
+	const [fahrenheit, setFahrenheit] = useState(false);
+
+	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
 	// fetch weather api
 	const fetchWeather = async () => {
@@ -64,12 +68,19 @@ export default function WeatherApp() {
 		return countryNameInEnglish.of(data.sys.country);
 	}
 
+	// switch fahrenheit flag
+	function switchFahrenheit() {
+		setFahrenheit(!fahrenheit);
+	}
+
 	return data.cod !== 200 ? (
 		<main className="not-found-popup">
 			<p>City Not Found! Please Try Again.</p>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
 				onKeyUpEvent={pressEnter}
+				unitOnClickEvent={switchFahrenheit}
+				isFahrenheit={fahrenheit}
 			/>
 		</main>
 	) : (
@@ -78,20 +89,22 @@ export default function WeatherApp() {
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
 				onKeyUpEvent={pressEnter}
+				unitOnClickEvent={switchFahrenheit}
+				isFahrenheit={fahrenheit}
 			/>
 			<article>
 				<p>{currentDate()}</p>
 				<h2>
 					{data.name}, {countryName()}
 				</h2>
-				<div className="temp">
-					<h3>{Math.round(data.main.temp)}°</h3>
-					<span id="temp-max">{Math.round(data.main.temp_max)}°</span>
-					<span id="temp-min">{Math.round(data.main.temp_min)}°</span>
-					<p>
-						Feels like<span>{Math.round(data.main.feels_like)}°</span>
-					</p>
-				</div>
+				<WeatherIcon icon={data.weather[0].icon} />
+				<Temperature
+					temp={data.main.temp}
+					tempMax={data.main.temp_max}
+					tempMin={data.main.temp_min}
+					feelsLike={data.main.feels_like}
+					isFahrenheit={fahrenheit}
+				/>
 				<div className="weather">
 					<h3>{data.weather[0].main}</h3>
 					<span>{data.weather[0].description}</span>
