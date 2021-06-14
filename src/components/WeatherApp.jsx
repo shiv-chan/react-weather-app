@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Temperature from './Temperature';
+import WeatherIcon from './WeatherIcon';
 import './WeatherApp.css';
 
 export default function WeatherApp() {
@@ -96,6 +97,7 @@ export default function WeatherApp() {
 				<h2>
 					{data.name}, {countryName()}
 				</h2>
+				<WeatherIcon icon={data.weather[0].icon} />
 				<Temperature
 					temp={data.main.temp}
 					tempMax={data.main.temp_max}

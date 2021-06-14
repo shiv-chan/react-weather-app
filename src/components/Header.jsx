@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { WiCelsius, WiFahrenheit } from 'weather-icons-react';
 
 export default function Header({
 	onChangeEvent,
@@ -14,7 +15,9 @@ export default function Header({
 				onChange={onChangeEvent}
 				onKeyUp={onKeyUpEvent}
 			/>
-			<span onClick={unitOnClickEvent}>{isFahrenheit ? 'F' : '℃'}</span>
+			<span onClick={unitOnClickEvent}>
+				{isFahrenheit ? <WiCelsius size={50} /> : <WiFahrenheit size={50} />}
+			</span>
 		</header>
 	);
 }

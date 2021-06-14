@@ -32,13 +32,10 @@ body {
 main {
 	margin: auto;
 	max-width: 500px;
-	/* min-width: 200px; */
 	background-color: rgba(255, 255, 255, 0.2);
 	background: linear-gradient(to bottom, rgb(255, 165, 0), rgb(237, 116, 1));
-
 	border-radius: 1rem;
 	color: #fff;
-	/* background: linear-gradient(to bottom, rgb(236, 167, 30), rgb(237, 116, 1)); */
 }
 
 main h1 {
@@ -70,6 +67,29 @@ header span:hover {
 	cursor: pointer;
 }
 
+article {
+	position: relative;
+	overflow: hidden;
+}
+
+article .weather-icon {
+	position: absolute;
+	top: 5rem;
+	right: 0;
+}
+
+article .weather-icon::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 7%;
+	left: 7%;
+	width: 85%;
+	height: 85%;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 50%;
+}
+
 article > p,
 article > h2 {
 	margin: 2rem;
@@ -93,14 +113,14 @@ article > h2 {
 		'max min'
 		'feels feels';
 	margin: 2rem;
-	width: auto;
+	width: 30%;
 	gap: 0.5rem;
 }
 
 /* name each grid area */
 .temp h3 {
 	grid-area: temp;
-	font-size: 2rem;
+	font-size: 3rem;
 }
 
 .temp #temp-max {
