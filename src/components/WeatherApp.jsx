@@ -3,11 +3,13 @@ import Header from './Header';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 import './WeatherApp.css';
+import switchBackground from './switchBackground';
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
 	const [city, setCity] = useState('Vancouver');
 	const [fahrenheit, setFahrenheit] = useState(false);
+	const [icon, setIcon] = useState('');
 
 	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
@@ -36,7 +38,7 @@ export default function WeatherApp() {
 
 	// press enter event handler
 	function pressEnter(e) {
-		// e.code === 'Enter' ? fetchWeather() : '';
+		// e.code === 'Enter' ? setNewData() : '';
 		if (e.code === 'Enter') {
 			setNewData();
 			console.log(e.code);
@@ -73,8 +75,12 @@ export default function WeatherApp() {
 		setFahrenheit(!fahrenheit);
 	}
 
+	useEffect(() => {
+		data && data.cod === 200 && setIcon(switchBackground(data.weather[0].icon));
+	}, [data]);
+
 	return data.cod !== 200 ? (
-		<main className="not-found-popup">
+		<main className={`not-found-popup ${icon}`}>
 			<p>City Not Found! Please Try Again.</p>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
@@ -84,7 +90,7 @@ export default function WeatherApp() {
 			/>
 		</main>
 	) : (
-		<main>
+		<main className={icon}>
 			<h1>Weather App</h1>
 			<Header
 				onChangeEvent={(e) => setCity(e.target.value)}
