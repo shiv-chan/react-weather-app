@@ -3,6 +3,7 @@ import Header from './Header';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 import './WeatherApp.css';
+import switchBackground from './switchBackground';
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
@@ -37,7 +38,7 @@ export default function WeatherApp() {
 
 	// press enter event handler
 	function pressEnter(e) {
-		// e.code === 'Enter' ? fetchWeather() : '';
+		// e.code === 'Enter' ? setNewData() : '';
 		if (e.code === 'Enter') {
 			setNewData();
 			console.log(e.code);
@@ -74,48 +75,8 @@ export default function WeatherApp() {
 		setFahrenheit(!fahrenheit);
 	}
 
-	// set icon
-	function switchBackground(icon) {
-		switch (icon) {
-			case '01d':
-			case '01n':
-				setIcon('sunny');
-				break;
-			case '02d':
-			case '02n':
-				setIcon('few-clouds');
-				break;
-			case '03d':
-			case '03n':
-			case '04d':
-			case '04n':
-				setIcon('clouds');
-				break;
-			case '09d':
-			case '09n':
-			case '10d':
-			case '10n':
-				setIcon('rain');
-				break;
-			case '11d':
-			case '11n':
-				setIcon('thunder');
-				break;
-			case '13d':
-			case '13n':
-				setIcon('snow');
-				break;
-			case '50d':
-			case '50n':
-				setIcon('mist');
-				break;
-			default:
-				setIcon('sunny');
-		}
-	}
-
 	useEffect(() => {
-		data && data.cod === 200 && switchBackground(data.weather[0].icon);
+		data && data.cod === 200 && setIcon(switchBackground(data.weather[0].icon));
 	}, [data]);
 
 	return data.cod !== 200 ? (
