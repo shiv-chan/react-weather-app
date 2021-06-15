@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
-import './WeatherApp.css';
 import switchBackground from './switchBackground';
 
 export default function WeatherApp() {
