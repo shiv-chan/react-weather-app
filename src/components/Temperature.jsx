@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { currentWeather } from './WeatherApp';
 
 export default function Temperature({ isFahrenheit }) {
-	const data = useContext(currentWeather);
+	const { data } = useContext(currentWeather);
 	// convert celsius to fahrenheit
 	function convertToFahrenheit(celsius) {
 		return isFahrenheit

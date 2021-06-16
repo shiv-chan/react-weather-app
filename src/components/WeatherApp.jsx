@@ -3,15 +3,17 @@ import Header from './Header';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 import switchBackground from './switchBackground';
+import NotFound from './NotFound';
 const currentWeather = React.createContext();
 
 export default function WeatherApp() {
-	const [data, setData] = useState('');
+	const [data, setData] = useState(null);
 	const [city, setCity] = useState('Vancouver');
 	const [fahrenheit, setFahrenheit] = useState(false);
-	const [icon, setIcon] = useState('');
+	const [icon, setIcon] = useState(null);
+	const [error, setError] = useState(null);
 
-	console.log(`🚀 ~ WeatherApp ~ data`, data);
+	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
 	// fetch weather api
 	const fetchWeather = async () => {
@@ -38,10 +40,8 @@ export default function WeatherApp() {
 
 	// press enter event handler
 	function pressEnter(e) {
-		// e.code === 'Enter' ? setNewData() : '';
 		if (e.code === 'Enter') {
 			setNewData();
-			console.log(e.code);
 		}
 	}
 
@@ -75,22 +75,21 @@ export default function WeatherApp() {
 		setFahrenheit(!fahrenheit);
 	}
 
+	// set icon code
 	useEffect(() => {
 		data && data.cod === 200 && setIcon(switchBackground(data.weather[0].icon));
 	}, [data]);
 
-	return data.cod !== 200 ? (
-		<main className={`not-found-popup ${icon}`}>
-			<p>City Not Found! Please Try Again.</p>
-			<Header
-				onChangeEvent={(e) => setCity(e.target.value)}
-				onKeyUpEvent={pressEnter}
-				unitOnClickEvent={switchFahrenheit}
-				isFahrenheit={fahrenheit}
-			/>
-		</main>
+	return !data || data.cod !== 200 ? (
+		<currentWeather.Provider
+			value={{ data, pressEnter, switchFahrenheit, fahrenheit, icon, setCity }}
+		>
+			<NotFound />
+		</currentWeather.Provider>
 	) : (
-		<currentWeather.Provider value={data}>
+		<currentWeather.Provider
+			value={{ data, pressEnter, switchFahrenheit, fahrenheit }}
+		>
 			<main className={icon}>
 				<h1>Weather App</h1>
 				<Header
