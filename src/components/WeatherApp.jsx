@@ -3,6 +3,7 @@ import Header from './Header';
 import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 import switchBackground from './switchBackground';
+const currentWeather = React.createContext();
 
 export default function WeatherApp() {
 	const [data, setData] = useState('');
@@ -10,7 +11,7 @@ export default function WeatherApp() {
 	const [fahrenheit, setFahrenheit] = useState(false);
 	const [icon, setIcon] = useState('');
 
-	// console.log(`🚀 ~ WeatherApp ~ data`, data);
+	console.log(`🚀 ~ WeatherApp ~ data`, data);
 
 	// fetch weather api
 	const fetchWeather = async () => {
@@ -89,54 +90,52 @@ export default function WeatherApp() {
 			/>
 		</main>
 	) : (
-		<main className={icon}>
-			<h1>Weather App</h1>
-			<Header
-				onChangeEvent={(e) => setCity(e.target.value)}
-				onKeyUpEvent={pressEnter}
-				unitOnClickEvent={switchFahrenheit}
-				isFahrenheit={fahrenheit}
-			/>
-			<article>
-				<p>{currentDate()}</p>
-				<h2>
-					{data.name}, {countryName()}
-				</h2>
-				<WeatherIcon icon={data.weather[0].icon} />
-				<Temperature
-					temp={data.main.temp}
-					tempMax={data.main.temp_max}
-					tempMin={data.main.temp_min}
-					feelsLike={data.main.feels_like}
+		<currentWeather.Provider value={data}>
+			<main className={icon}>
+				<h1>Weather App</h1>
+				<Header
+					onChangeEvent={(e) => setCity(e.target.value)}
+					onKeyUpEvent={pressEnter}
+					unitOnClickEvent={switchFahrenheit}
 					isFahrenheit={fahrenheit}
 				/>
-				<div className="weather">
-					<h3>{data.weather[0].main}</h3>
-					<span>{data.weather[0].description}</span>
-				</div>
-				<div className="others">
-					<section className="others-item">
-						<h4>Sunrise</h4>
-						<p>{formatTime(data.sys.sunrise)}</p>
-					</section>
-					<section className="others-item">
-						<h4>Sunset</h4>
-						<p>{formatTime(data.sys.sunset)}</p>
-					</section>
-					<section className="others-item">
-						<h4>Humidity</h4>
-						<p>{data.main.humidity} %</p>
-					</section>
-					<section className="others-item">
-						<h4>Wind</h4>
-						<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
-					</section>
-					<section className="others-item">
-						<h4>Pressure</h4>
-						<p>{data.main.pressure} hPa</p>
-					</section>
-				</div>
-			</article>
-		</main>
+				<article>
+					<p>{currentDate()}</p>
+					<h2>
+						{data.name}, {countryName()}
+					</h2>
+					<WeatherIcon icon={data.weather[0].icon} />
+					<Temperature isFahrenheit={fahrenheit} />
+					<div className="weather">
+						<h3>{data.weather[0].main}</h3>
+						<span>{data.weather[0].description}</span>
+					</div>
+					<div className="others">
+						<section className="others-item">
+							<h4>Sunrise</h4>
+							<p>{formatTime(data.sys.sunrise)}</p>
+						</section>
+						<section className="others-item">
+							<h4>Sunset</h4>
+							<p>{formatTime(data.sys.sunset)}</p>
+						</section>
+						<section className="others-item">
+							<h4>Humidity</h4>
+							<p>{data.main.humidity} %</p>
+						</section>
+						<section className="others-item">
+							<h4>Wind</h4>
+							<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
+						</section>
+						<section className="others-item">
+							<h4>Pressure</h4>
+							<p>{data.main.pressure} hPa</p>
+						</section>
+					</div>
+				</article>
+			</main>
+		</currentWeather.Provider>
 	);
 }
+
+export { currentWeather };
