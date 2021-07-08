@@ -4,6 +4,7 @@ import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 import switchBackground from './switchBackground';
 import NotFound from './NotFound';
+import Loading from './Loading';
 const currentWeather = React.createContext();
 
 export default function WeatherApp() {
@@ -11,7 +12,7 @@ export default function WeatherApp() {
 	const [city, setCity] = useState('Vancouver');
 	const [fahrenheit, setFahrenheit] = useState(false);
 	const [icon, setIcon] = useState(null);
-	const [error, setError] = useState(null);
+	const [status, setStatus] = useState('pending');
 
 	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
@@ -27,15 +28,25 @@ export default function WeatherApp() {
 	// set new data
 	const setNewData = () => {
 		try {
-			fetchWeather().then((result) => setData(result));
+			setStatus('pending');
+			fetchWeather()
+				.then((result) => {
+					setData(result);
+					return result;
+				})
+				.then((result) =>
+					result.cod !== 200 ? setStatus('rejected') : setStatus('resolved')
+				);
 		} catch (e) {
-			console.error(`Failed to fetch Weather API: ${e} `);
+			console.error(`Failed to fetch Weather API: ${e}`);
+			setStatus('rejected');
 		}
 	};
 
 	// first fetch after dom loaded
 	useEffect(() => {
 		setNewData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// press enter event handler
@@ -77,64 +88,85 @@ export default function WeatherApp() {
 
 	// set icon code
 	useEffect(() => {
-		data && data.cod === 200 && setIcon(switchBackground(data.weather[0].icon));
+		status === 'resolved' && setIcon(switchBackground(data.weather[0].icon));
+		console.log('set icon code');
 	}, [data]);
 
-	return !data || data.cod !== 200 ? (
-		<currentWeather.Provider
-			value={{ data, pressEnter, switchFahrenheit, fahrenheit, icon, setCity }}
-		>
-			<NotFound />
-		</currentWeather.Provider>
-	) : (
-		<currentWeather.Provider
-			value={{ data, pressEnter, switchFahrenheit, fahrenheit }}
-		>
-			<main className={icon}>
-				<h1>Weather App</h1>
-				<Header
-					onChangeEvent={(e) => setCity(e.target.value)}
-					onKeyUpEvent={pressEnter}
-					unitOnClickEvent={switchFahrenheit}
-					isFahrenheit={fahrenheit}
-				/>
-				<article>
-					<p>{currentDate()}</p>
-					<h2>
-						{data.name}, {countryName()}
-					</h2>
-					<WeatherIcon icon={data.weather[0].icon} />
-					<Temperature isFahrenheit={fahrenheit} />
-					<div className="weather">
-						<h3>{data.weather[0].main}</h3>
-						<span>{data.weather[0].description}</span>
-					</div>
-					<div className="others">
-						<section className="others-item">
-							<h4>Sunrise</h4>
-							<p>{formatTime(data.sys.sunrise)}</p>
-						</section>
-						<section className="others-item">
-							<h4>Sunset</h4>
-							<p>{formatTime(data.sys.sunset)}</p>
-						</section>
-						<section className="others-item">
-							<h4>Humidity</h4>
-							<p>{data.main.humidity} %</p>
-						</section>
-						<section className="others-item">
-							<h4>Wind</h4>
-							<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
-						</section>
-						<section className="others-item">
-							<h4>Pressure</h4>
-							<p>{data.main.pressure} hPa</p>
-						</section>
-					</div>
-				</article>
-			</main>
-		</currentWeather.Provider>
-	);
+	console.log(data);
+	console.log(`Status: ${status}`);
+
+	if (status === 'pending') {
+		return <Loading />;
+	}
+
+	if (status === 'resolved') {
+		return (
+			<currentWeather.Provider
+				value={{ data, pressEnter, switchFahrenheit, fahrenheit }}
+			>
+				<main className={icon}>
+					<h1>Weather App</h1>
+					<Header
+						onChangeEvent={(e) => setCity(e.target.value)}
+						onKeyUpEvent={pressEnter}
+						unitOnClickEvent={switchFahrenheit}
+						isFahrenheit={fahrenheit}
+					/>
+					<article>
+						<p>{currentDate()}</p>
+						<h2>
+							{data.name}, {countryName()}
+						</h2>
+						<WeatherIcon iconCode={data.weather[0].icon} />
+						<Temperature isFahrenheit={fahrenheit} />
+						<div className="weather">
+							<h3>{data.weather[0].main}</h3>
+							<span>{data.weather[0].description}</span>
+						</div>
+						<div className="others">
+							<section className="others-item">
+								<h4>Sunrise</h4>
+								<p>{formatTime(data.sys.sunrise)}</p>
+							</section>
+							<section className="others-item">
+								<h4>Sunset</h4>
+								<p>{formatTime(data.sys.sunset)}</p>
+							</section>
+							<section className="others-item">
+								<h4>Humidity</h4>
+								<p>{data.main.humidity} %</p>
+							</section>
+							<section className="others-item">
+								<h4>Wind</h4>
+								<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
+							</section>
+							<section className="others-item">
+								<h4>Pressure</h4>
+								<p>{data.main.pressure} hPa</p>
+							</section>
+						</div>
+					</article>
+				</main>
+			</currentWeather.Provider>
+		);
+	}
+
+	if (status === 'rejected') {
+		return (
+			<currentWeather.Provider
+				value={{
+					data,
+					pressEnter,
+					switchFahrenheit,
+					fahrenheit,
+					icon,
+					setCity,
+				}}
+			>
+				<NotFound />
+			</currentWeather.Provider>
+		);
+	}
 }
 
 export { currentWeather };
