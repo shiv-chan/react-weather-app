@@ -8,13 +8,11 @@ import Loading from './Loading';
 const currentWeather = React.createContext();
 
 export default function WeatherApp() {
-	const [data, setData] = useState(null);
+	const [weather, setWeather] = useState(null);
 	const [city, setCity] = useState('Vancouver');
 	const [fahrenheit, setFahrenheit] = useState(false);
 	const [icon, setIcon] = useState(null);
 	const [status, setStatus] = useState('pending');
-
-	// console.log(`🚀 ~ WeatherApp ~ data`, data);
 
 	// fetch weather api
 	const fetchWeather = async () => {
@@ -26,12 +24,12 @@ export default function WeatherApp() {
 	};
 
 	// set new data
-	const setNewData = () => {
+	const setNewWeather = () => {
 		try {
 			setStatus('pending');
 			fetchWeather()
 				.then((result) => {
-					setData(result);
+					setWeather(result);
 					return result;
 				})
 				.then((result) =>
@@ -45,14 +43,14 @@ export default function WeatherApp() {
 
 	// first fetch after dom loaded
 	useEffect(() => {
-		setNewData();
+		setNewWeather();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// press enter event handler
 	function pressEnter(e) {
 		if (e.code === 'Enter') {
-			setNewData();
+			setNewWeather();
 		}
 	}
 
@@ -78,7 +76,7 @@ export default function WeatherApp() {
 		const countryNameInEnglish = new Intl.DisplayNames(['en'], {
 			type: 'region',
 		});
-		return countryNameInEnglish.of(data.sys.country);
+		return countryNameInEnglish.of(weather.sys.country);
 	}
 
 	// switch fahrenheit flag
@@ -88,11 +86,12 @@ export default function WeatherApp() {
 
 	// set icon code
 	useEffect(() => {
-		status === 'resolved' && setIcon(switchBackground(data.weather[0].icon));
+		status === 'resolved' && setIcon(switchBackground(weather.weather[0].icon));
 		console.log('set icon code');
-	}, [data]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [weather]);
 
-	console.log(data);
+	console.log(weather);
 	console.log(`Status: ${status}`);
 
 	if (status === 'pending') {
@@ -102,7 +101,7 @@ export default function WeatherApp() {
 	if (status === 'resolved') {
 		return (
 			<currentWeather.Provider
-				value={{ data, pressEnter, switchFahrenheit, fahrenheit }}
+				value={{ weather, pressEnter, switchFahrenheit, fahrenheit }}
 			>
 				<main className={icon}>
 					<h1>Weather App</h1>
@@ -115,34 +114,34 @@ export default function WeatherApp() {
 					<article>
 						<p>{currentDate()}</p>
 						<h2>
-							{data.name}, {countryName()}
+							{weather.name}, {countryName()}
 						</h2>
-						<WeatherIcon iconCode={data.weather[0].icon} />
+						<WeatherIcon iconCode={weather.weather[0].icon} />
 						<Temperature isFahrenheit={fahrenheit} />
 						<div className="weather">
-							<h3>{data.weather[0].main}</h3>
-							<span>{data.weather[0].description}</span>
+							<h3>{weather.weather[0].main}</h3>
+							<span>{weather.weather[0].description}</span>
 						</div>
 						<div className="others">
 							<section className="others-item">
 								<h4>Sunrise</h4>
-								<p>{formatTime(data.sys.sunrise)}</p>
+								<p>{formatTime(weather.sys.sunrise)}</p>
 							</section>
 							<section className="others-item">
 								<h4>Sunset</h4>
-								<p>{formatTime(data.sys.sunset)}</p>
+								<p>{formatTime(weather.sys.sunset)}</p>
 							</section>
 							<section className="others-item">
 								<h4>Humidity</h4>
-								<p>{data.main.humidity} %</p>
+								<p>{weather.main.humidity} %</p>
 							</section>
 							<section className="others-item">
 								<h4>Wind</h4>
-								<p>{((data.wind.speed * 18) / 5).toFixed(2)} km/h</p>
+								<p>{((weather.wind.speed * 18) / 5).toFixed(2)} km/h</p>
 							</section>
 							<section className="others-item">
 								<h4>Pressure</h4>
-								<p>{data.main.pressure} hPa</p>
+								<p>{weather.main.pressure} hPa</p>
 							</section>
 						</div>
 					</article>
@@ -155,7 +154,7 @@ export default function WeatherApp() {
 		return (
 			<currentWeather.Provider
 				value={{
-					data,
+					weather,
 					pressEnter,
 					switchFahrenheit,
 					fahrenheit,
