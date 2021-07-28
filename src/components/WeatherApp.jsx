@@ -87,9 +87,9 @@ export default function WeatherApp() {
 	// set icon code
 	useEffect(() => {
 		status === 'resolved' && setIcon(switchBackground(weather.weather[0].icon));
-		console.log('set icon code');
+		console.log('set icon code', icon);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [weather]);
+	}, [status]);
 
 	console.log(weather);
 	console.log(`Status: ${status}`);

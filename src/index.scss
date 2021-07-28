@@ -193,3 +193,14 @@ article {
 .mist {
 	background: linear-gradient(to top, #9796f0, #fbc7d4);
 }
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	h2 {
+		margin-left: 1rem;
+		font-weight: bold;
+	}
+}
