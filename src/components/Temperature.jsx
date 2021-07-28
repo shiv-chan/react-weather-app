@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { currentWeather } from './WeatherApp';
 
 export default function Temperature({ isFahrenheit }) {
-	const data = useContext(currentWeather);
+	const { weather } = useContext(currentWeather);
 	// convert celsius to fahrenheit
 	function convertToFahrenheit(celsius) {
 		return isFahrenheit
@@ -13,17 +13,17 @@ export default function Temperature({ isFahrenheit }) {
 
 	return (
 		<div className="temp">
-			<h3>{convertToFahrenheit(data.main.temp)}°</h3>
+			<h3>{convertToFahrenheit(weather.main.temp)}°</h3>
 			<span id="temp-max">
 				<FontAwesomeIcon icon="chevron-up" />
-				{convertToFahrenheit(data.main.temp_max)}°
+				{convertToFahrenheit(weather.main.temp_max)}°
 			</span>
 			<span id="temp-min">
 				<FontAwesomeIcon icon="chevron-down" />
-				{convertToFahrenheit(data.main.temp_min)}°
+				{convertToFahrenheit(weather.main.temp_min)}°
 			</span>
 			<p>
-				Feels like <span>{convertToFahrenheit(data.main.feels_like)}°</span>
+				Feels like <span>{convertToFahrenheit(weather.main.feels_like)}°</span>
 			</p>
 		</div>
 	);

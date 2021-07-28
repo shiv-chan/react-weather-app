@@ -14,8 +14,8 @@ import {
 	WiNA,
 } from 'weather-icons-react';
 
-export default function WeatherIcon({ icon }) {
-	return <div className="weather-icon">{pickIcon(icon)}</div>;
+export default function WeatherIcon({ iconCode }) {
+	return <div className="weather-icon">{pickIcon(iconCode)}</div>;
 }
 
 function pickIcon(icon, iconSize = 250) {
