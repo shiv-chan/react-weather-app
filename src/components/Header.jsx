@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { WiCelsius, WiFahrenheit } from 'weather-icons-react';
+import { WeatherContext } from '../context';
 
-export default function Header({
-	onChangeEvent,
-	onKeyUpEvent,
-	unitOnClickEvent,
-	isFahrenheit,
-}) {
+export default function Header({ onChangeEvent }) {
+	const { pressEnter, isFahrenheit, switchFahrenheit } =
+		useContext(WeatherContext);
 	return (
 		<header>
 			<input
 				type="text"
 				placeholder="Search by City"
 				onChange={onChangeEvent}
-				onKeyUp={onKeyUpEvent}
+				onKeyUp={pressEnter}
 			/>
-			<span onClick={unitOnClickEvent}>
+			<span onClick={switchFahrenheit}>
 				{isFahrenheit ? <WiCelsius size={50} /> : <WiFahrenheit size={50} />}
 			</span>
 		</header>

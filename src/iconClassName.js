@@ -1,4 +1,4 @@
-export default function switchBackground(icon) {
+export default function iconClassName(icon) {
 	switch (icon) {
 		case '01d':
 		case '01n':
