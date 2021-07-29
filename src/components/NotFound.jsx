@@ -1,20 +1,14 @@
 import React, { useContext } from 'react';
 import Header from './Header';
-import { currentWeather } from './WeatherApp';
+import { WeatherContext } from '../context';
 
 export default function NotFound() {
-	const { pressEnter, switchFahrenheit, fahrenheit, icon, setCity } =
-		useContext(currentWeather);
+	const { iconName, setCity } = useContext(WeatherContext);
 
 	return (
-		<main className={`not-found-popup ${icon}`}>
+		<main className={`not-found-popup ${iconName}`}>
 			<p>City Not Found! Please Try Again.</p>
-			<Header
-				onChangeEvent={(e) => setCity(e.target.value)}
-				onKeyUpEvent={pressEnter}
-				unitOnClickEvent={switchFahrenheit}
-				isFahrenheit={fahrenheit}
-			/>
+			<Header onChangeEvent={(e) => setCity(e.target.value)} />
 		</main>
 	);
 }

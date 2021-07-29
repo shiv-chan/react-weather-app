@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
-import { currentWeather } from './WeatherApp';
+import { WeatherContext } from '../context';
 
-export default function Temperature({ isFahrenheit }) {
-	const { weather } = useContext(currentWeather);
+export default function Temperature() {
+	const { weather, isFahrenheit } = useContext(WeatherContext);
 	// convert celsius to fahrenheit
 	function convertToFahrenheit(celsius) {
 		return isFahrenheit
