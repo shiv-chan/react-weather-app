@@ -8,15 +8,7 @@ import Temperature from './Temperature';
 import WeatherIcon from './WeatherIcon';
 
 export default function WeatherApp() {
-	const {
-		setFahrenheit,
-		setCity,
-		status,
-		weather,
-		isFahrenheit,
-		pressEnter,
-		iconName,
-	} = useContext(WeatherContext);
+	const { setCity, status, weather, iconName } = useContext(WeatherContext);
 
 	// get current date 'day, date month'
 	function currentDate() {

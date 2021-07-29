@@ -1,0 +1,22 @@
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	input {
+		border: none;
+		border-radius: 1rem;
+		width: 60%;
+		height: 1.8rem;
+		padding-left: 15px;
+		outline: none;
+	}
+
+	span {
+		margin-left: 1rem;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

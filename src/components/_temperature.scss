@@ -1,0 +1,34 @@
+.temp {
+	display: grid;
+	grid-template: 2fr 1fr 1fr / 1fr 1fr;
+	grid-template-areas:
+		'temp temp'
+		'max min'
+		'feels feels';
+	margin: 2rem;
+	width: 30%;
+	gap: 0.5rem;
+
+	/* name each grid area */
+	h3 {
+		grid-area: temp;
+		font-size: 3rem;
+	}
+
+	#temp-max {
+		grid-area: max;
+	}
+
+	#temp-min {
+		grid-area: min;
+	}
+
+	#temp-max svg,
+	#temp-min svg {
+		margin-right: 0.5rem;
+	}
+
+	p {
+		grid-area: feels;
+	}
+}
