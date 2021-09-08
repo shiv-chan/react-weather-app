@@ -8,6 +8,7 @@
 	box-sizing: border-box;
 	font-family: 'Quicksand', sans-serif;
 	font-size: 62.5%;
+	color: #fff;
 }
 
 .container {
@@ -23,11 +24,15 @@
 	& > article {
 		width: 100%;
 		min-width: 300px;
+		display: grid;
+		grid-template-rows: auto auto 1fr;
+		grid-template-columns: 100%;
 
 		h1 {
 			text-align: center;
-			font-size: 2.5rem;
-			padding-top: 2.5rem;
+			font-size: 4rem;
+			padding-top: 4rem;
+			grid-row: 1 / 2;
 		}
 	}
 }

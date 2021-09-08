@@ -2,8 +2,9 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	grid-column: 2 / 3;
-	margin: 2rem auto;
+	grid-row: 2 / 3;
+	grid-column: 1 / -1;
+	margin: 2rem 0;
 
 	.not-found-message {
 		position: absolute;
@@ -14,6 +15,7 @@ header {
 	}
 
 	input {
+		color: #000;
 		border: none;
 		border-radius: 1.5rem;
 		width: 60%;

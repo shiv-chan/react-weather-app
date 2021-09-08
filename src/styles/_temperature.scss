@@ -7,12 +7,16 @@
 		'feels feels';
 	margin: 2rem;
 	width: 30%;
-	gap: 0.5rem;
+	gap: 1rem;
 
 	/* name each grid area */
 	h3 {
 		grid-area: temp;
-		font-size: 3rem;
+		font-size: 4rem;
+	}
+
+	& span {
+		font-size: 1.8rem;
 	}
 
 	#temp-max {
@@ -25,10 +29,16 @@
 
 	#temp-max svg,
 	#temp-min svg {
+		font-size: 1.5rem;
 		margin-right: 0.5rem;
 	}
 
 	p {
 		grid-area: feels;
+		font-size: 1.5rem;
+
+		& span {
+			font-size: inherit;
+		}
 	}
 }
