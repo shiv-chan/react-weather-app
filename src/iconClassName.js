@@ -1,5 +1,5 @@
-export default function iconClassName(icon) {
-	switch (icon) {
+export default function iconClassName(iconCode) {
+	switch (iconCode) {
 		case '01d':
 		case '01n':
 			return 'sunny';

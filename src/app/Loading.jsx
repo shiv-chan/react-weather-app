@@ -17,14 +17,16 @@ const spinTransition = {
 
 function CircleLoader() {
 	return (
-		<div className="loader">
-			<motion.span
-				style={circleStyle}
-				animate={{ rotate: 360 }}
-				transition={spinTransition}
-			/>
-			<h2>Loading...</h2>
-		</div>
+		<main>
+			<div className="loader">
+				<motion.span
+					style={circleStyle}
+					animate={{ rotate: 360 }}
+					transition={spinTransition}
+				/>
+				<h2>Loading...</h2>
+			</div>
+		</main>
 	);
 }
 

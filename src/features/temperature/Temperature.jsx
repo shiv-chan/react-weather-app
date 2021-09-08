@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
-import { WeatherContext } from '../context';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Temperature() {
-	const { weather, isFahrenheit } = useContext(WeatherContext);
+	const isFahrenheit = useSelector((state) => state.isFahrenheit);
+	const weather = useSelector((state) => state.weather.weather);
+
 	// convert celsius to fahrenheit
 	function convertToFahrenheit(celsius) {
 		return isFahrenheit

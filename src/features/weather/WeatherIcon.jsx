@@ -18,8 +18,8 @@ export default function WeatherIcon({ iconCode }) {
 	return <div className="weather-icon">{pickIcon(iconCode)}</div>;
 }
 
-function pickIcon(icon, iconSize = 250) {
-	switch (icon) {
+function pickIcon(iconCode, iconSize = 250) {
+	switch (iconCode) {
 		case '01d':
 		case '01n':
 			return <WiDaySunny size={iconSize} />;

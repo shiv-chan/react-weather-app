@@ -1,0 +1,33 @@
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-column: 2 / 3;
+	margin: 2rem auto;
+
+	.not-found-message {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		font-size: 2.5rem;
+	}
+
+	input {
+		border: none;
+		border-radius: 1.5rem;
+		width: 60%;
+		height: 2.5rem;
+		padding: 1.5rem;
+		outline: none;
+		font-size: 1.5rem;
+	}
+
+	span {
+		margin-top: 0.5rem;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

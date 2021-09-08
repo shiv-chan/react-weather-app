@@ -1,0 +1,98 @@
+main {
+	width: 100vw;
+	height: 100vh;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.2);
+	background: linear-gradient(to bottom, rgb(255, 165, 0), rgb(237, 116, 1));
+	color: #fff;
+	display: grid;
+	grid-template: 80px 80px auto / auto 700px auto;
+
+	h1 {
+		text-align: center;
+		margin: auto;
+		padding: 2rem;
+		grid-column: 2 / 3;
+	}
+}
+
+article {
+	position: relative;
+	overflow: hidden;
+	display: grid;
+	grid-template: 2fr 1fr / auto 700px auto;
+	grid-column: 1 / -1;
+
+	.weather-top {
+		position: relative;
+		align-self: stretch;
+		grid-column: 2 / 3;
+
+		& .weather-icon {
+			position: absolute;
+			top: 5rem;
+			right: 0;
+
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 7%;
+				left: 7%;
+				width: 85%;
+				height: 85%;
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 50%;
+			}
+		}
+
+		& > p,
+		& > h2 {
+			margin: 2rem;
+			font-size: 1.2rem;
+			font-weight: bold;
+		}
+
+		& > p {
+			margin-bottom: 0;
+		}
+
+		& > h2 {
+			margin-top: 0;
+		}
+	}
+
+	.weather {
+		margin: 2rem;
+
+		h3 {
+			font-size: 2rem;
+		}
+	}
+}
+
+.others-background-wrapper {
+	display: grid;
+	grid-template-columns: auto 700px auto;
+	grid-column: 1 / -1;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.others {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	padding: 2rem;
+	grid-column: 2 / 3;
+}
+
+.others-item {
+	h4 {
+		font-weight: normal;
+		font-size: 0.8rem;
+	}
+
+	p {
+		font-weight: bold;
+	}
+}
