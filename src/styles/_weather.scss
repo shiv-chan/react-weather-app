@@ -1,0 +1,135 @@
+main {
+	position: relative;
+	overflow: hidden;
+	display: grid;
+	grid-template: auto auto / 100%;
+	grid-row: 3 / -1;
+
+	.weather-top {
+		position: relative;
+		grid-column: 1 / -1;
+		width: 100%;
+		height: auto;
+		min-width: 300px;
+		max-width: 500px;
+		margin: 0 auto;
+
+		& .weather-icon {
+			position: absolute;
+			top: 6rem;
+			right: 1rem;
+
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 7%;
+				left: 7%;
+				width: 85%;
+				height: 85%;
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 50%;
+			}
+		}
+
+		& > p,
+		& > h2 {
+			margin: 0 3rem;
+			font-size: 1.8rem;
+			font-weight: bold;
+		}
+	}
+
+	.weather {
+		margin: 2rem;
+		margin-left: 3rem;
+
+		h3 {
+			font-size: 3rem;
+		}
+
+		span {
+			font-size: 1.5rem;
+		}
+	}
+}
+
+.others-background-wrapper {
+	display: grid;
+	grid-column: 1 / -1;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.others {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	grid-column: 1 / -1;
+	width: 100%;
+	height: 200px;
+	min-width: 300px;
+	max-width: 500px;
+	padding: 0 3rem;
+	margin: 3rem auto;
+}
+
+.others-item {
+	h4 {
+		font-weight: normal;
+		font-size: 1.5rem;
+	}
+
+	p {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+}
+
+@include smallMobile {
+	main {
+		.weather-top {
+			& .weather-icon {
+				top: 8rem;
+			}
+		}
+	}
+}
+
+@include laptop {
+	main {
+		.weather-top {
+			padding-top: 2rem;
+			max-width: 600px;
+
+			& > p,
+			& > h2 {
+				font-size: 2.5rem;
+			}
+		}
+
+		.weather {
+			h3 {
+				font-size: 4rem;
+			}
+
+			span {
+				font-size: 2rem;
+			}
+		}
+	}
+
+	.others {
+		max-width: 600px;
+		gap: 2rem;
+	}
+
+	.others-item {
+		h4 {
+			font-size: 2rem;
+		}
+
+		p {
+			font-size: 2.5rem;
+		}
+	}
+}

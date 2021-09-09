@@ -1,0 +1,13 @@
+// small mobile device
+@mixin smallMobile {
+	@media screen and (max-width: 320px) {
+		@content;
+	}
+}
+
+// laptop
+@mixin laptop {
+	@media screen and (min-width: 1440px) {
+		@content;
+	}
+}

@@ -1,0 +1,72 @@
+.temp {
+	display: grid;
+	grid-template: 2fr 1fr 1fr / 1fr 1fr;
+	grid-template-areas:
+		'temp temp'
+		'max min'
+		'feels feels';
+	margin: 2rem;
+	margin-left: 3rem;
+	width: 30%;
+	gap: 1rem;
+
+	/* name each grid area */
+	h3 {
+		grid-area: temp;
+		font-size: 4rem;
+	}
+
+	& span {
+		font-size: 1.8rem;
+	}
+
+	#temp-max {
+		grid-area: max;
+	}
+
+	#temp-min {
+		grid-area: min;
+	}
+
+	#temp-max svg,
+	#temp-min svg {
+		font-size: 1.5rem;
+		margin-right: 0.5rem;
+	}
+
+	p {
+		grid-area: feels;
+		font-size: 1.5rem;
+
+		& span {
+			font-size: inherit;
+		}
+	}
+}
+
+@include smallMobile {
+	.temp {
+		width: 40%;
+	}
+}
+
+@include laptop {
+	.temp {
+		h3 {
+			font-size: 5rem;
+		}
+
+		& span {
+			font-size: 2.5rem;
+		}
+
+		#temp-max svg,
+		#temp-min svg {
+			font-size: 2.5rem;
+		}
+
+		p {
+			font-size: 2rem;
+		}
+	}
+}

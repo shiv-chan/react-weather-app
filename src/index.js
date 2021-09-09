@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import Weather from './components/Weather';
+import store from './app/store';
+import { Provider } from 'react-redux';
+import App from './App';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { WeatherContextProvider } from './context.js';
 
 library.add(faChevronUp, faChevronDown);
 
 ReactDOM.render(
-	<WeatherContextProvider>
-		<Weather />
-	</WeatherContextProvider>,
+	<Provider store={store}>
+		<App />
+	</Provider>,
 	document.getElementById('root')
 );

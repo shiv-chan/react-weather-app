@@ -1,0 +1,35 @@
+.sunny {
+	background: linear-gradient(to bottom, rgb(255, 165, 0), rgb(237, 116, 1));
+}
+
+.few-clouds {
+	background: linear-gradient(to top, #d1913c, #ffd194);
+}
+
+.clouds {
+	background: linear-gradient(to top, #757f9a, #d7dde8);
+}
+
+.rain {
+	background: linear-gradient(to top, #2c3e50, #3498db);
+}
+
+.thunder {
+	background: linear-gradient(to bottom, #e9d362, #333333);
+}
+
+.snow {
+	background: linear-gradient(to top, #83a4d4, #b6fbff);
+}
+
+.mist {
+	background: linear-gradient(to top, #9796f0, #fbc7d4);
+}
+
+.night {
+	background: linear-gradient(to top, #141e30, #243b55);
+
+	.others-background-wrapper {
+		background-color: rgba(255, 255, 255, 0.05);
+	}
+}
