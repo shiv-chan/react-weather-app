@@ -1,8 +1,11 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import {
 	WiDaySunny,
+	WiNightClear,
 	WiDaySunnyOvercast,
 	WiCloud,
+	WiNightAltCloudy,
 	WiCloudy,
 	WiRain,
 	WiDayRain,
@@ -15,17 +18,24 @@ import {
 } from 'weather-icons-react';
 
 export default function WeatherIcon({ iconCode }) {
-	return <div className="weather-icon">{pickIcon(iconCode)}</div>;
+	const isSmallMobile = useMediaQuery({ query: '(max-width: 320px)' });
+	const isLaptop = useMediaQuery({ query: '(min-width: 1440px)' });
+	let iconSize;
+	if (isSmallMobile) iconSize = 150;
+	if (isLaptop) iconSize = 250;
+	return <div className="weather-icon">{pickIcon(iconCode, iconSize)}</div>;
 }
 
 function pickIcon(iconCode, iconSize = 200) {
 	switch (iconCode) {
 		case '01d':
-		case '01n':
 			return <WiDaySunny size={iconSize} />;
+		case '01n':
+			return <WiNightClear size={iconSize} />;
 		case '02d':
-		case '02n':
 			return <WiDaySunnyOvercast size={iconSize} />;
+		case '02n':
+			return <WiNightAltCloudy size={iconSize} />;
 		case '03d':
 		case '03n':
 			return <WiCloud size={iconSize} />;

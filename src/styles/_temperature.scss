@@ -6,6 +6,7 @@
 		'max min'
 		'feels feels';
 	margin: 2rem;
+	margin-left: 3rem;
 	width: 30%;
 	gap: 1rem;
 
@@ -39,6 +40,33 @@
 
 		& span {
 			font-size: inherit;
+		}
+	}
+}
+
+@include smallMobile {
+	.temp {
+		width: 40%;
+	}
+}
+
+@include laptop {
+	.temp {
+		h3 {
+			font-size: 5rem;
+		}
+
+		& span {
+			font-size: 2.5rem;
+		}
+
+		#temp-max svg,
+		#temp-min svg {
+			font-size: 2.5rem;
+		}
+
+		p {
+			font-size: 2rem;
 		}
 	}
 }

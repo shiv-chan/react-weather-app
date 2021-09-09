@@ -1,5 +1,5 @@
 // small mobile device
-@mixin sm {
+@mixin smallMobile {
 	@media screen and (max-width: 320px) {
 		@content;
 	}

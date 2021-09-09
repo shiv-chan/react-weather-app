@@ -5,6 +5,11 @@ header {
 	grid-row: 2 / 3;
 	grid-column: 1 / -1;
 	margin: 2rem 0;
+	padding: 0 3rem;
+	width: 100%;
+	min-width: 300px;
+	max-width: 400px;
+	justify-self: center;
 
 	.not-found-message {
 		position: absolute;
@@ -18,10 +23,10 @@ header {
 		color: #000;
 		border: none;
 		border-radius: 1.5rem;
-		width: 60%;
 		height: 2.5rem;
 		padding: 1.5rem;
 		outline: none;
+		width: 100%;
 		font-size: 1.5rem;
 	}
 
@@ -31,5 +36,11 @@ header {
 		&:hover {
 			cursor: pointer;
 		}
+	}
+}
+
+@include laptop {
+	header {
+		max-width: 600px;
 	}
 }
