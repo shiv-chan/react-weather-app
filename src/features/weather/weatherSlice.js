@@ -9,7 +9,7 @@ export const fetchWeather = createAsyncThunk(
 	'weather/fetchWeather',
 	async ({ city }) => {
 		const response = await fetch(
-			`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+			`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
 		);
 
 		if (response.status !== 200) {
